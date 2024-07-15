@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #0072ce;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+.stakepool-info,
+.statistics,
+.join {
+  background-color: white;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #0072ce;
+}
+
+button {
+  background-color: #0072ce;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #0072ce;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
