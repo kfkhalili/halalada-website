@@ -1,54 +1,272 @@
+html,
 body {
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+  height: 100%;
 }
 
-header {
-  background-color: #0072ce;
-  color: white;
-  padding: 20px;
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #a8d5ba;
+  transition: background-color 0.5s;
+  line-height: 24px;
+  overflow-y: scroll; /* Enable vertical scroll */
+}
+
+h1 {
+  color: #a8d5ba;
   text-align: center;
+  font-size: 36px;
 }
 
-main {
-  padding: 20px;
-}
-
-.stakepool-info,
-.statistics,
-.join {
-  background-color: white;
-  margin: 20px 0;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  color: #0072ce;
-}
-
-button {
-  background-color: #0072ce;
-  color: white;
-  border: none;
+.navbar {
+  margin: 0 7%;
+  height: 120px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
-button:hover {
-  background-color: #005fa3;
+.navbar .logo {
+  display: flex;
+  align-items: center;
 }
 
-footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #0072ce;
+.navbar .logo-img {
+  max-height: 100px; /* Adjust the height as needed */
+  height: auto; /* Maintain aspect ratio */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.navbar nav {
+  display: flex;
+}
+
+.navbar nav a {
   color: white;
-  position: fixed;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.navbar nav a:hover {
+  background-color: #6b9c81;
+}
+
+.navbar .delegate-button {
+  font-size: 18px;
+  color: white;
+  background-color: transparent;
+  padding: 10px 30px;
+  border: 2px solid white;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .delegate-button:hover {
+  background-color: white;
+  color: #a8d5ba;
+}
+
+.hero {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 48px;
+}
+
+section {
+  margin: 0 auto;
+  height: 70vh;
+  padding: 5vh;
+  max-width: 900px;
+  text-align: center;
+  transition: opacity 0.5s linear;
+  opacity: 0;
+}
+
+#about {
+  text-align: justify;
+}
+
+.why-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.why-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.why-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.why-item p {
+  font-weight: bold;
+  margin: 10px 0 5px;
+  color: grey;
+}
+
+.why-item span {
+  font-size: 14px;
+}
+
+.spec-item-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 300px; /* Limit the width of the container */
+  margin: 0 auto; /* Center the container */
+}
+
+.spec-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the left */
+  margin-bottom: 10px; /* Add some space between items */
+  text-align: left; /* Ensure text aligns to the left */
+  width: 100%; /* Ensure items take up full width of container */
+}
+
+.spec-icon {
+  margin-right: 10px; /* Space between icon and text */
+  font-size: 24px; /* Adjust the size of the icons */
+}
+
+.spec-item p {
+  margin: 0; /* Remove default margin */
+  line-height: 24px; /* Ensure text aligns well with icons */
+}
+
+#faq {
+  text-align: center;
+  overflow: hidden; /* Ensure the section can expand */
+}
+
+#faq .faq-item p {
+  text-align: left; /* Override to keep FAQ content left-aligned */
+}
+
+.footer {
+  background-color: #87bfa1;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.footer .logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer .logo-img {
+  max-height: 50px; /* Adjust the height as needed */
+  height: auto; /* Maintain aspect ratio */
+  width: auto; /* Maintain aspect ratio */
+}
+
+.social-links {
+  display: flex;
+  gap: 20px; /* Space between social icons */
+}
+
+.social-icon img {
+  width: 28px; /* Adjust the size of the icons */
+  height: 28px;
+  filter: invert(100%); /* Make icons white */
+}
+
+.privacy-policy {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.privacy-link {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.privacy-link:hover {
+  text-decoration: underline;
+}
+
+/* Collapsible Section Styles */
+.faq-item {
+  background-color: white;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.collapsible {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 18px;
   width: 100%;
-  bottom: 0;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.collapsible:hover {
+  background-color: #f1f1f1;
+}
+
+.collapsible-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Increase the distance between title and subtitle */
+}
+
+.collapsible-title {
+  font-size: 24px; /* Set the font size */
+  color: #a8d5ba; /* Set the color */
+  font-weight: bold;
+}
+
+.collapsible-subtitle {
+  color: grey;
+}
+
+.arrow {
+  transition: transform 0.3s;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: white;
+  transition: max-height 0.2s ease-out;
 }
