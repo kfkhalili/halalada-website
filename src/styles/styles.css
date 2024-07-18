@@ -8,8 +8,8 @@ body {
   font-family: "Roboto", sans-serif;
   background-color: #a8d5ba;
   transition: background-color 0.5s;
-  line-height: 24px;
-  overflow-y: scroll; /* Enable vertical scroll */
+  line-height: 1.5;
+  overflow-y: scroll;
 }
 
 h1 {
@@ -19,7 +19,7 @@ h1 {
 }
 
 .navbar {
-  margin: 0 7%;
+  margin: 0 5%;
   height: 120px;
   display: flex;
   justify-content: space-between;
@@ -33,13 +33,14 @@ h1 {
 }
 
 .navbar .logo-img {
-  max-height: 100px; /* Adjust the height as needed */
-  height: auto; /* Maintain aspect ratio */
-  width: auto; /* Maintain aspect ratio */
+  max-height: 100px;
+  height: auto;
+  width: auto;
 }
 
 .navbar nav {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .navbar nav a {
@@ -77,11 +78,13 @@ h1 {
   align-items: center;
   color: white;
   font-size: 48px;
+  text-align: center;
+  padding: 20px;
 }
 
 section {
   margin: 0 auto;
-  height: 70vh;
+  height: auto;
   padding: 5vh;
   max-width: 900px;
   text-align: center;
@@ -130,36 +133,38 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 300px; /* Limit the width of the container */
-  margin: 0 auto; /* Center the container */
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 .spec-item {
   display: flex;
-  align-items: center;
-  justify-content: flex-start; /* Align items to the left */
-  margin-bottom: 10px; /* Add some space between items */
-  text-align: left; /* Ensure text aligns to the left */
-  width: 100%; /* Ensure items take up full width of container */
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  text-align: left;
+  width: 100%;
 }
 
 .spec-icon {
-  margin-right: 10px; /* Space between icon and text */
-  font-size: 24px; /* Adjust the size of the icons */
+  width: 26px;
+  height: 26px;
+  margin-right: 10px;
 }
 
 .spec-item p {
-  margin: 0; /* Remove default margin */
-  line-height: 24px; /* Ensure text aligns well with icons */
+  margin: 0;
+  line-height: 24px;
 }
 
 #faq {
   text-align: center;
-  overflow: hidden; /* Ensure the section can expand */
+  overflow: hidden;
 }
 
 #faq .faq-item p {
-  text-align: left; /* Override to keep FAQ content left-aligned */
+  text-align: left;
 }
 
 .footer {
@@ -175,28 +180,31 @@ section {
   align-items: center;
   width: 400px;
   margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .footer .logo {
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .footer .logo-img {
-  max-height: 50px; /* Adjust the height as needed */
-  height: auto; /* Maintain aspect ratio */
-  width: auto; /* Maintain aspect ratio */
+  max-height: 50px;
+  height: auto;
+  width: auto;
 }
 
 .social-links {
   display: flex;
-  gap: 20px; /* Space between social icons */
+  gap: 20px;
+  margin-bottom: 10px;
 }
 
 .social-icon img {
-  width: 28px; /* Adjust the size of the icons */
+  width: 28px;
   height: 28px;
-  filter: invert(100%); /* Make icons white */
+  filter: invert(100%);
 }
 
 .privacy-policy {
@@ -214,7 +222,6 @@ section {
   text-decoration: underline;
 }
 
-/* Collapsible Section Styles */
 .faq-item {
   background-color: white;
   margin-top: 20px;
@@ -246,12 +253,12 @@ section {
 .collapsible-text {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Increase the distance between title and subtitle */
+  gap: 8px;
 }
 
 .collapsible-title {
-  font-size: 24px; /* Set the font size */
-  color: #a8d5ba; /* Set the color */
+  font-size: 24px;
+  color: #a8d5ba;
   font-weight: bold;
 }
 
@@ -269,4 +276,54 @@ section {
   overflow: hidden;
   background-color: white;
   transition: max-height 0.2s ease-out;
+}
+
+@media (max-width: 768px) {
+  body {
+    line-height: 1.6;
+  }
+
+  .hero {
+    font-size: 24px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .navbar nav {
+    display: none;
+  }
+
+  .navbar .logo-img {
+    max-height: 40px;
+  }
+
+  .why-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .spec-item-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .footer-main {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footer .logo-img {
+    max-height: 40px;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
 }

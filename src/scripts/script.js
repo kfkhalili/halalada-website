@@ -1,7 +1,9 @@
 window.addEventListener("scroll", function () {
   const scrollPosition = window.scrollY + window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
-  const transitionPoint = documentHeight / 4;
+  const isMobile = window.innerWidth <= 768;
+
+  const transitionPoint = isMobile ? documentHeight / 4 : documentHeight / 3;
 
   const sections = document.querySelectorAll("section");
   const heroHeight = document.querySelector(".hero").offsetHeight;
@@ -57,29 +59,5 @@ collapsibles.forEach((collapsible) => {
       content.style.display = "block";
       arrow.style.transform = "rotate(180deg)";
     }
-
-    // Adjust the height of the FAQ section
-    //adjustFAQHeight();
   });
 });
-
-// function adjustFAQHeight() {
-//   const faqSection = document.getElementById("faq");
-//   let totalHeight = 0;
-//   faqSection.querySelectorAll(".faq-item").forEach((item) => {
-//     totalHeight += item.querySelector(".collapsible").offsetHeight;
-//     if (item.querySelector(".content").style.display === "block") {
-//       totalHeight += item.querySelector(".content").scrollHeight;
-//     }
-//   });
-//   faqSection.style.height = `${totalHeight}px`;
-// }
-
-// // Initial adjustment on page load
-// window.addEventListener("load", adjustFAQHeight);
-
-// // Adjust FAQ height on window resize
-// window.addEventListener("resize", adjustFAQHeight);
-
-// // Adjust FAQ height on scroll
-// window.addEventListener("scroll", adjustFAQHeight);
