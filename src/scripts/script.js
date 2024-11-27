@@ -1,13 +1,10 @@
-window.addEventListener("scroll", function () {
+// Function to update the background color based on scroll position
+function updateBackgroundColor() {
   const scrollPosition = window.scrollY + window.innerHeight;
   const documentHeight = document.documentElement.scrollHeight;
   const isMobile = window.innerWidth <= 768;
 
   const transitionPoint = isMobile ? documentHeight / 4 : documentHeight / 3;
-
-  const sections = document.querySelectorAll("section");
-  const heroHeight = document.querySelector(".hero").offsetHeight;
-  const scrollTop = window.scrollY;
 
   // Calculate the background color transition
   if (scrollPosition >= transitionPoint) {
@@ -15,8 +12,20 @@ window.addEventListener("scroll", function () {
   } else {
     document.body.style.backgroundColor = "#a8d5ba";
   }
+}
 
-  // Calculate the opacity based on the scroll position relative to the transition point
+// Update background color on scroll
+window.addEventListener("scroll", updateBackgroundColor);
+
+// Initialize background color on page load
+document.addEventListener("DOMContentLoaded", updateBackgroundColor);
+
+// Handle section opacity on scroll
+window.addEventListener("scroll", function () {
+  const sections = document.querySelectorAll("section");
+  const heroHeight = document.querySelector(".hero").offsetHeight;
+  const scrollTop = window.scrollY;
+
   sections.forEach((section) => {
     let opacity = scrollTop / (heroHeight / 2);
     if (opacity < 0) opacity = 0;
@@ -26,6 +35,7 @@ window.addEventListener("scroll", function () {
   });
 });
 
+// Smooth scroll for navbar links
 document.querySelectorAll(".navbar nav a").forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
@@ -35,6 +45,7 @@ document.querySelectorAll(".navbar nav a").forEach((anchor) => {
   });
 });
 
+// Collapsible sections logic
 const collapsibles = document.querySelectorAll(".collapsible");
 collapsibles.forEach((collapsible) => {
   collapsible.addEventListener("click", function () {
@@ -61,8 +72,3 @@ collapsibles.forEach((collapsible) => {
     }
   });
 });
-
-// Scroll to the top of the page on refresh
-window.onbeforeunload = function () {
-  window.scrollTo(0, 0);
-};
