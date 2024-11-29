@@ -55,22 +55,6 @@ h1 {
   background-color: #6b9c81;
 }
 
-.navbar .delegate-button {
-  font-size: 18px;
-  color: white;
-  background-color: transparent;
-  padding: 10px 30px;
-  border: 2px solid white;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.navbar .delegate-button:hover {
-  background-color: white;
-  color: #a8d5ba;
-}
-
 .hero {
   height: 80vh;
   display: flex;
