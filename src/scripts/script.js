@@ -1,7 +1,12 @@
 // Function to update the background color based on scroll position
 function updateBackgroundColor() {
-  const scrollPosition = window.scrollY + window.innerHeight;
-  const documentHeight = document.documentElement.scrollHeight;
+  const scrollPosition =
+    Math.max(document.documentElement.scrollTop, document.body.scrollTop) +
+    window.innerHeight;
+  const documentHeight = Math.max(
+    document.documentElement.scrollHeight,
+    document.body.scrollHeight
+  );
   const isMobile = window.innerWidth <= 768;
 
   const transitionPoint = isMobile ? documentHeight / 4 : documentHeight / 3;
