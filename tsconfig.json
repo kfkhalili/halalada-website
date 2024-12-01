@@ -23,7 +23,6 @@
     "incremental": true
   },
   "include": [
-    "types/**/*.d.ts",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
