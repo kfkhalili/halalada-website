@@ -1,15 +1,7 @@
 import { useEffect, useRef } from "react";
-import { renderCanvas } from "./canvas";
-
 import { DelegateButton } from "@features/wallet";
 
 export const Hero: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    renderCanvas(canvasRef.current);
-  }, [canvasRef]);
-
   return (
     <section className="hero flex items-center">
       <div className="container mx-auto relative">
