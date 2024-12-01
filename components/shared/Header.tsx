@@ -44,39 +44,37 @@ export const Header: React.FC = () => {
         <div className="lg:container flex justify-between items-center mx-auto pl-6 lg:pl-0 pr-6 lg:pr-0">
           <nav className="flex justify-between items-center pt-2 pb-2 w-full">
             <Link href="/" passHref>
-              <a>
-                <div className="logo-box flex items-center justify-center">
-                  <img
-                    className="rounded-circle mr-8"
-                    style={{ maxHeight: 100 }}
-                    src="/halalada3.png"
-                    alt="Halal ADA Staking Pool - Logo"
-                  />
-                </div>
-              </a>
+              <div className="logo-box flex items-center justify-center">
+                <img
+                  className="rounded-circle mr-8"
+                  style={{ maxHeight: 100 }}
+                  src="/halalada3.png"
+                  alt="Halal ADA Staking Pool - Logo"
+                />
+              </div>
             </Link>
             <ul className="nav-list hidden lg:flex">
               <li className="nav-link">
                 <Link href="/#about" passHref>
-                  <a>Our Pool</a>
+                  Our Pool
                 </Link>
               </li>
 
               {/* <li className="nav-link">
                 <Link href="/pool-stats" passHref>
-                  <a>Pool Stats</a>
+                  Pool Stats
                 </Link>
               </li> */}
 
               <li className="nav-link">
                 <Link href="/#resources" passHref>
-                  <a>Resources</a>
+                  Resources
                 </Link>
               </li>
 
               <li className="nav-link">
                 <Link href="/#contact" passHref>
-                  <a>Contact</a>
+                  Contact
                 </Link>
               </li>
             </ul>
@@ -97,30 +95,30 @@ export const Header: React.FC = () => {
                     <ul className="menu-items">
                       <li className="menu-item">
                         <Link href="/" passHref>
-                          <a>Home</a>
+                          Home
                         </Link>
                       </li>
                       <li className="menu-item">
                         <Link href="/#about" passHref>
-                          <a>Our Pool</a>
+                          Our Pool
                         </Link>
                       </li>
 
                       <li className="menu-item">
                         <Link href="/pool-stats" passHref>
-                          <a>Pool Stats</a>
+                          Pool Stats
                         </Link>
                       </li>
 
                       <li className="menu-item">
                         <Link href="/#resources" passHref>
-                          <a>Resources</a>
+                          Resources
                         </Link>
                       </li>
 
                       <li className="menu-item">
                         <Link href="/#contact" passHref>
-                          <a>Contact</a>
+                          Contact
                         </Link>
                       </li>
                     </ul>

@@ -1,18 +1,15 @@
-import React, { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import {
-  faWindowClose,
-  faStopCircle,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
-  isOpen: boolean
-  onClose: any
-  children: React.ReactNode
-  title: string
-}
+  isOpen: boolean;
+  onClose: () => void; // Updated for better type safety
+  children: React.ReactNode;
+  title: string;
+};
+
 export function Modal({ isOpen, onClose, children, title }: Props) {
   return (
     <>
@@ -23,6 +20,7 @@ export function Modal({ isOpen, onClose, children, title }: Props) {
           onClose={onClose}
         >
           <div className="min-h-screen px-4 text-center">
+            {/* Overlay */}
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -32,16 +30,18 @@ export function Modal({ isOpen, onClose, children, title }: Props) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-black/30" />
+              <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
             </Transition.Child>
 
-            {/* This element is to trick the browser into centering the modal contents. */}
+            {/* Trick to center modal */}
             <span
               className="inline-block h-screen align-middle"
               aria-hidden="true"
             >
               &#8203;
             </span>
+
+            {/* Modal Content */}
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -75,5 +75,5 @@ export function Modal({ isOpen, onClose, children, title }: Props) {
         </Dialog>
       </Transition>
     </>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-import React from 'react'
-import NextImage from 'next/image'
-import { useAtom } from 'jotai'
-import { Modal } from '@components/shared/Modal'
-import { config } from '@shared/config'
-import { selectWalletModalAtom } from '../atoms'
-import { useWallet } from '../useWallet'
+import React from "react";
+import NextImage from "next/legacy/image";
+import { useAtom } from "jotai";
+import { Modal } from "@components/shared/Modal";
+import { config } from "@shared/config";
+import { selectWalletModalAtom } from "../atoms";
+import { useWallet } from "../useWallet";
 
 export const SelectWalletModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useAtom(selectWalletModalAtom)
-  const { connectWallet } = useWallet()
+  const [isOpen, setIsOpen] = useAtom(selectWalletModalAtom);
+  const { connectWallet } = useWallet();
 
   if (!isOpen) {
-    return null
+    return null;
   }
 
   return (
@@ -19,7 +19,7 @@ export const SelectWalletModal: React.FC = () => {
       title="Select Wallet"
       isOpen={isOpen}
       onClose={() => {
-        setIsOpen(false)
+        setIsOpen(false);
       }}
     >
       <div className="grid grid-cols-2 gap-6">
@@ -28,8 +28,8 @@ export const SelectWalletModal: React.FC = () => {
             key={wallet.name}
             className="p-3 bg-slate-800/80 hover:bg-slate-800 rounded-lg transition-all"
             onClick={() => {
-              connectWallet(wallet.walletKey)
-              setIsOpen(false)
+              connectWallet(wallet.walletKey);
+              setIsOpen(false);
             }}
           >
             <NextImage
@@ -45,5 +45,5 @@ export const SelectWalletModal: React.FC = () => {
         ))}
       </div>
     </Modal>
-  )
-}
+  );
+};

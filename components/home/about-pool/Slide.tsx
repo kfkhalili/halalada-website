@@ -1,6 +1,9 @@
+import React, { ReactNode } from "react";
+
 type Props = {
-  title: string
-}
+  title: string;
+  children?: ReactNode; // Add `children` as an optional property
+};
 
 export const Slide: React.FC<Props> = ({ title, children }) => {
   return (
@@ -8,5 +11,5 @@ export const Slide: React.FC<Props> = ({ title, children }) => {
       <h3 className="text-2xl md:text-3xl mb-6">{title}</h3>
       <div className="break-words">{children}</div>
     </div>
-  )
-}
+  );
+};
