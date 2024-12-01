@@ -8,7 +8,6 @@ import {
   premiumAccessStatusAtom,
 } from "./atoms";
 import PubSub from "pubsub-js";
-// @ts-ignore
 import * as cbor from "cbor-web";
 import { CardanoAPI, Blockfrost, Spend } from "@lib/cardano-api";
 import toast from "react-hot-toast";
@@ -97,11 +96,7 @@ export function useWallet() {
       try {
         //@ts-ignore
         const stake = await CardanoAPI?.plugins.spend.delegate({
-          // testnet pools
-          // stakepoolId: '7b3170bbd9a2a806ac886dcdcedabc93869ebc8891ae006df1189e2f',
-          // stakepoolId: '5f5ed4eb2ba354ab2ad7c8859f3dacf93564637a105e80c8d8a7dc3c',
-
-          // prod
+          // mainnet
           stakepoolId:
             "6c518b4861bb88b1395ceb116342cecbcfb8736282655f9a61c4c368",
         });
@@ -136,11 +131,7 @@ export function useWallet() {
       try {
         //@ts-ignore
         const result = await CardanoAPI?.plugins.spend.send({
-          // testnet address
-          // address:
-          //   'addr_test1qzxj6udysrrsp6anjyhnpkn453c55hdxrlqkunjycz5uxwdx77z8dcnzmnhdacnfj2kglta8wurs6x7njzllkgl4hmssu8jhtd',
-
-          // prod
+          // mainnet
           address:
             "addr1q8nq8wdhrpq402qj4hyn5rxn624l0ccua8k3epl2xl3fz57zddeldn7syvs5x2uvuefk66azhr7lelrj423lxapuxkksknwfdj",
           amount,
@@ -254,7 +245,7 @@ async function decodeBalance(cborValue: string) {
 
 //@ts-ignore
 function waitForExtension(walletKey) {
-  let attemps = 0;
+  let attempts = 0;
 
   //@ts-ignore
   const isExtensionLoaded = () => window.cardano && window.cardano[walletKey];
@@ -270,9 +261,9 @@ function waitForExtension(walletKey) {
         clearInterval(interval);
         resolve(null);
       } else {
-        attemps++;
+        attempts++;
 
-        if (attemps > 20) {
+        if (attempts > 20) {
           clearInterval(interval);
           reject("Could not connect to wallet");
         }
