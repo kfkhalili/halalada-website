@@ -2,11 +2,16 @@ import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "export",
+  basePath: "/halalada-website",
+  assetPrefix: "/halalada-website",
+  images: {
+    unoptimized: true,
+  },
   webpack: (config, { isServer }) => {
-    // Enable WebAssembly experiments
-    config.experiments = { ...config.experiments, asyncWebAssembly: true };
-
-    // SVG loader configuration
+    if (!isServer) {
+      config.experiments = { ...config.experiments, asyncWebAssembly: true };
+    }
     config.module.rules.push({
       test: /\.svg$/,
       issuer: /\.[jt]sx?$/,
