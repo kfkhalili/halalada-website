@@ -1,29 +1,39 @@
-# HalalADA Stakepool
+## Introduction
 
-Welcome to the HalalADA Stakepool repository. This project contains the source code for the HalalADA static webpage.
+Halal ADA public webapp. It is Next.js application. Read more here: Next.README.md
 
-## Structure
+```
+yarn install
+```
 
-- **public/index.html**: Main HTML file.
-- **src/assets/**: Directory for images and other assets.
-- **src/styles/**: Directory for CSS files.
-- **src/scripts/**: Directory for JavaScript files.
+Create .env.local file with the following content:
 
-## Getting Started
+```
+BLOCKFROST_MAINNET_KEY="KEY"
+BLOCKFROST_MAINNET_URL="https://Cardano-mainnet.blockfrost.io/api/v0"
 
-1. Clone the repository:
+BLOCKFROST_TESTNET_KEY="KEY"
+BLOCKFROST_TESTNET_URL="https://Cardano-testnet.blockfrost.io/api/v0"
+PREDICTION_API_URL="https://europe-west2-cognitivo-ai.cloudfunctions.net/ada_price"
+```
 
-   ```bash
-   git clone https://github.com/yourusername/HalalADA-Stakepool.git
-   cd HalalADA-Stakepool
-   ```
+## Dev server
 
-2. Open `public/index.html` in your browser to view the site.
+```
+yarn dev
+```
 
-## Deployment
+## Prod build
 
-This site is hosted on GitHub Pages. To deploy, push changes to the `main` branch.
+```
+yarn build
+yarn start
+```
 
-## License
+## Support / Donation
 
-MIT License
+If you find this tool useful, you can donate any amount in ADA to the following Cardano address:
+
+```
+addr1v8u4n42ltege2nm66dmzyxttqstdycjzsd6tr9r9tg4n3ncanfn84
+```
