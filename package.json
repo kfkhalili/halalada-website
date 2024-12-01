@@ -1,24 +1,54 @@
 {
-  "name": "halalada-website",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.html",
+  "name": "halal-ada-public-webapp",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CardanoStakePool/halalada-website.git"
+  "dependencies": {
+    "@emurgo/cardano-serialization-lib-browser": "^9.1.4",
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-brands-svg-icons": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^2.2.0",
+    "@tailwindcss/forms": "^0.5.9",
+    "@xstate/react": "^5.0.0",
+    "aos": "^3.0.0-beta.6",
+    "buffer": "^6.0.3",
+    "cbor-web": "^8.1.0",
+    "chart.js": "^4.4.6",
+    "cheerio": "^1.0.0-rc.10",
+    "classnames": "^2.3.1",
+    "csstype": "^3.1.1",
+    "dayjs": "^1.10.7",
+    "faker": "^6.6.6",
+    "jotai": "^2.10.3",
+    "meed": "^1.0.1",
+    "next": "^15.0.3",
+    "node-fetch": "^3.2.10",
+    "pubsub-js": "^1.9.4",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.2.0",
+    "swiper": "^11.1.15",
+    "xstate": "^5.19.0"
   },
-  "keywords": [
-    "ada",
-    "halal",
-    "cardano"
-  ],
-  "author": "Khalid Alkhalili, Christian Weiss",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CardanoStakePool/halalada-website/issues"
-  },
-  "homepage": "www.halalada.com"
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "@types/aos": "^3.0.4",
+    "@types/node": "^22.10.1",
+    "@types/pubsub-js": "^1.8.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.7",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "^15.0.3",
+    "postcss": "^8.4.24",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.2.2"
+  }
 }
