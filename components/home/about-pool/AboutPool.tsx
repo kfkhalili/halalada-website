@@ -122,7 +122,7 @@ export const AboutPool: React.FC = () => {
                       technology. Our mission is to introduce the benefits of
                       decentralized finance to Muslims and the broader
                       community. At Halal ADA, we prioritize transparency,
-                      security, and inclusivity, ensuring that our stakepool
+                      security, and inclusivity, ensuring that our stake pool
                       aligns with Islamic principles while offering valuable
                       financial opportunities for everyone.
                       <br />
@@ -156,13 +156,15 @@ export const AboutPool: React.FC = () => {
 
                   <SwiperSlide>
                     <Slide title="Our Setup">
-                      <div className="flex items-center justify-center h-[500px] relative">
+                      <div className="flex items-center justify-center h-[350px] relative">
                         {" "}
-                        {/* Main container */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-center max-w-[900px] transform -translate-y-8">
+                        {/* Reduced height */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-center max-w-[900px]">
+                          {" "}
+                          {/* Slight adjustment */}
                           {specItems.map((item) => (
                             <div
-                              className="flex flex-col items-center justify-center p-5 h-[150px]" // Mini box styling
+                              className="flex flex-col items-center justify-center p-5 h-[120px]"
                               key={item.description}
                             >
                               <item.icon className="w-[50px] h-[50px] text-white mb-2" />
