@@ -105,7 +105,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
         href={post.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="mb-2 block"
+        className="mb-4 flex-1 flex flex-col"
       >
         <img
           src={post.thumbnail}
@@ -113,7 +113,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
           alt="post cover"
         />
 
-        <h3 className="text-white text-lg">{post.title}</h3>
+        <h3 className="text-white text-lg line-clamp-2">{post.title}</h3>
       </a>
       <div className="text-sm text-white">
         {dayjs(post.date).format("MMM DD, YYYY")}
