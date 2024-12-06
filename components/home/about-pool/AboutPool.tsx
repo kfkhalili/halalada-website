@@ -135,7 +135,7 @@ export const AboutPool: React.FC = () => {
 
                   <SwiperSlide>
                     <Slide title="Why Stake with Halal ADA?">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-center max-w-[900px] mx-auto">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 text-center max-w-[900px] mx-auto">
                         {whyItems.map((item) => (
                           <div
                             className="flex flex-col items-center p-5"
