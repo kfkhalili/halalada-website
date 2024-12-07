@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import NextImage from "next/legacy/image";
 import { faWallet, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,11 +11,13 @@ function shortenAddress(address: string = "") {
 }
 
 function formatBalance(balance: number) {
+  console.log(balance);
   return (Number(balance) / 1000000).toFixed(2) + " ₳";
 }
 
-//@ts-ignore
-export const ConnectWallet = (props) => {
+interface ConnectWalletProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
   const { wallet, status, selectWallet, disconnectWallet } = useWallet();
 
   return (
@@ -38,7 +41,6 @@ export const ConnectWallet = (props) => {
                     className=""
                     height={22}
                     width={22}
-                    //@ts-ignore
                     src={config.wallets[wallet.walletKey].logo}
                     alt=""
                   />
@@ -63,12 +65,10 @@ export const ConnectWallet = (props) => {
                       className=""
                       height={22}
                       width={22}
-                      //@ts-ignore
                       src={config.wallets[wallet.walletKey].logo}
                       alt=""
                     />
                   </div>
-                  {/*@ts-ignore*/}
                   {config.wallets[wallet.walletKey].name}
                 </div>
               </div>

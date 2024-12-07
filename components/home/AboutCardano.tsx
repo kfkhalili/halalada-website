@@ -77,8 +77,13 @@ export const AboutCardano: React.FC = () => {
   );
 };
 
-// @ts-ignore
-const Card = ({ image, title, children, ...rest }) => {
+type CardProps = {
+  image: string;
+  title: string;
+  children: React.ReactNode;
+};
+
+const Card = ({ image, title, children, ...rest }: CardProps) => {
   return (
     <div
       className="bg-main text-dark p-10 shadow-md rounded-md relative w-full"

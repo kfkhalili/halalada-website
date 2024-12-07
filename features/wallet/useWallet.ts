@@ -177,7 +177,6 @@ export function useWallet() {
     const executeGetAssets = async () => {
       setPremiumAccessStatus("checking");
 
-      //@ts-ignore
       const rewardAddress = await CardanoAPI.baseCommands.getRewardAddress(
         CardanoAPI.addressReturnType.bech32
       );
@@ -243,8 +242,7 @@ async function decodeBalance(cborValue: string) {
   return decodedBalance;
 }
 
-//@ts-ignore
-function waitForExtension(walletKey) {
+function waitForExtension(walletKey: String) {
   let attempts = 0;
 
   //@ts-ignore
