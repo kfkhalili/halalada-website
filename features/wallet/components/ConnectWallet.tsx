@@ -11,7 +11,6 @@ function shortenAddress(address: string = "") {
 }
 
 function formatBalance(balance: number) {
-  console.log(balance);
   return (Number(balance) / 1000000).toFixed(2) + " ₳";
 }
 
