@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
           </nav>
           <div className="mobile-nav lg:hidden">
             <div className="nav-hamburger">
-              <input type="checkbox" />
+              <input name="close" type="checkbox" />
               <span />
               <span />
               <span />
