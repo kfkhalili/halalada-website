@@ -44,11 +44,11 @@ a {
   left: 0;
   z-index: 3;
   width: 100%;
-  transition: background 0.3s;
+  transition: background 0.4s;
 }
 
 .sticky-header {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(46, 46, 46, 0.9);
   color: #fff;
 }
 
