@@ -135,17 +135,17 @@ export const AboutPool: React.FC = () => {
 
                   <SwiperSlide>
                     <Slide title="Why Stake with Halal ADA?">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-center max-w-[900px] mx-auto">
+                      <div className="grid grid-cols-4 gap-5 text-center max-w-[900px] mx-auto">
                         {whyItems.map((item) => (
                           <div
                             className="flex flex-col items-center p-5"
                             key={item.title}
                           >
                             <item.icon className="w-[50px] h-[50px] mb-[10px] text-white" />
-                            <p className="font-bold mt-[10px] mb-[5px] text-white">
+                            <p className="font-bold mt-[10px] mb-[5px] text-xs sm:text-sm lg:text-base text-white">
                               {item.title}
                             </p>
-                            <span className="text-gray-300">
+                            <span className="text-gray-300 text-xs sm:text-sm lg:text-base">
                               {item.description}
                             </span>
                           </div>
@@ -157,18 +157,18 @@ export const AboutPool: React.FC = () => {
                   <SwiperSlide>
                     <Slide title="Our Setup">
                       <div className="flex items-center justify-center h-[350px] relative">
-                        {" "}
-                        {/* Reduced height */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 text-center max-w-[900px]">
-                          {" "}
-                          {/* Slight adjustment */}
+                        <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 text-center max-w-[900px]">
                           {specItems.map((item) => (
                             <div
-                              className="flex flex-col items-center justify-center p-5 h-[120px]"
+                              className="flex flex-col items-center justify-start p-5 h-auto"
                               key={item.description}
                             >
-                              <item.icon className="w-[50px] h-[50px] text-white mb-2" />
-                              <span className="text-gray-300">
+                              {/* Fixed size container for the icon */}
+                              <div className="w-[50px] h-[50px] flex items-center justify-center flex-shrink-0 mb-2">
+                                <item.icon className="w-full h-full text-white" />
+                              </div>
+                              {/* Text remains flexible */}
+                              <span className="text-gray-300 text-xs sm:text-sm lg:text-base">
                                 {item.description}
                               </span>
                             </div>
