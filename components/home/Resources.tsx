@@ -63,34 +63,46 @@ export const Resources: React.FC = () => {
             </div>
           )}
           {status === "loaded" && (
-            <Swiper
-              pagination={{
-                dynamicBullets: true,
-                clickable: true,
-              }}
-              spaceBetween={20}
-              slidesPerView={3}
-              breakpoints={{
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                500: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                0: {
-                  slidesPerView: 1,
-                  spaceBetween: 20,
-                },
-              }}
-            >
-              {posts.map((post, index) => (
-                <SwiperSlide key={index}>
-                  <PostCard post={post} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <>
+              <Swiper
+                pagination={{
+                  dynamicBullets: true,
+                  clickable: true,
+                }}
+                spaceBetween={20}
+                slidesPerView={3}
+                breakpoints={{
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                  },
+                  500: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20,
+                  },
+                }}
+              >
+                {posts.map((post, index) => (
+                  <SwiperSlide key={index}>
+                    <PostCard post={post} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <div className="mt-8">
+                <a
+                  href="https://medium.com/@HalalADAPool"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary"
+                >
+                  See More Articles
+                </a>
+              </div>
+            </>
           )}
         </div>
       </div>
