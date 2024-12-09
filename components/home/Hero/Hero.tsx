@@ -1,6 +1,3 @@
-import { useEffect, useRef } from "react";
-import { DelegateButton } from "@features/wallet";
-
 export const Hero: React.FC = () => {
   return (
     <section className="hero flex items-center">
@@ -13,13 +10,6 @@ export const Hero: React.FC = () => {
           >
             Ethical Staking, Educating and Empowering Communities on Cardano
           </h1>
-          <div className="flex justify-center">
-            <DelegateButton
-              data-aos="fade-up"
-              data-aos-anchor-placement="top"
-              data-aos-delay={350}
-            />
-          </div>
         </div>
       </div>
     </section>

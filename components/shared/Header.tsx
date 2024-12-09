@@ -99,12 +99,6 @@ export const Header: React.FC = () => {
                       </li>
 
                       <li className="menu-item">
-                        <Link href="/pool-stats" passHref>
-                          Pool Stats
-                        </Link>
-                      </li>
-
-                      <li className="menu-item">
                         <Link href="/#resources" passHref>
                           Resources
                         </Link>
