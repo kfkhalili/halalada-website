@@ -11,7 +11,7 @@ function shortenAddress(address: string = "") {
 }
 
 function formatBalance(balance: number) {
-  return (Number(balance) / 1000000).toFixed(2) + " ₳";
+  return (Number(balance) / 1_000_000).toFixed(2) + " ₳";
 }
 
 interface ConnectWalletProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -29,15 +29,13 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
                 <FontAwesomeIcon icon={faWallet} />
               </div>
               <div
-                className="bg-slate-200/20 hover:bg-slate-200/25 transition-all  text-slate-200 pl-4 pr-3 rounded-l-none rounded-3xl  py-1 -ml-2 flex items-center tracking-wider"
+                className="bg-slate-200/20 hover:bg-slate-200/25 transition-all text-slate-200 pl-4 pr-3 rounded-l-none rounded-3xl py-1 -ml-2 flex items-center tracking-wider"
                 title={wallet.address}
               >
                 {shortenAddress(wallet.address)}
-
                 <div className="ml-2 flex items-center bg-white/90 rounded-full p-[2px]">
                   <NextImage
                     objectFit="contain"
-                    className=""
                     height={22}
                     width={22}
                     src={config.wallets[wallet.walletKey].logo}
@@ -61,7 +59,6 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
                   <div className="mr-2 flex items-center bg-white/90 rounded-full p-[2px]">
                     <NextImage
                       objectFit="contain"
-                      className=""
                       height={22}
                       width={22}
                       src={config.wallets[wallet.walletKey].logo}
@@ -97,7 +94,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
 
       {status === "connecting" && (
         <button className="btn-secondary">
-          <FontAwesomeIcon icon={faWallet} className="mr-1 text-slate-300" />{" "}
+          <FontAwesomeIcon icon={faWallet} className="mr-1 text-slate-300" />
           Connecting...
         </button>
       )}
