@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import NextImage from "next/legacy/image";
 import { faWallet, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

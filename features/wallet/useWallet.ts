@@ -73,6 +73,8 @@ export const useWallet = () => {
     setSelectWalletModal(true);
   };
 
+  const delegate = async () => {};
+
   const disconnectWallet = useCallback(() => {
     setWallet(null);
     setStatus("disconnected");
@@ -81,6 +83,7 @@ export const useWallet = () => {
   return {
     wallet,
     status,
+    delegate,
     selectWallet,
     connectWallet,
     disconnectWallet,

@@ -1,18 +1,21 @@
-interface WalletAPI {
-  enable: () => Promise<any>;
-  isEnabled: () => Promise<boolean>;
-  getNetworkId: () => Promise<number>;
-  getUtxos: () => Promise<string[]>;
-  getChangeAddress: () => Promise<string>;
-  getRewardAddresses: () => Promise<string[]>;
+interface CardanoWallet {
+  name: string;
+  icon: string;
+  version: string;
+  apiVersion: string;
+  enable(): Promise<WalletApi>;
+  isEnabled(): Promise<boolean>;
+  experimental?: Record<string, unknown>;
+}
+
+interface WindowCardano {
+  eternl?: CardanoWallet;
+  nami?: CardanoWallet;
+  yoroi?: CardanoWallet;
+  flint?: CardanoWallet;
+  [key: string]: CardanoWallet | undefined;
 }
 
 interface Window {
-  cardano?: {
-    eternl?: WalletAPI;
-    flint?: WalletAPI;
-    nami?: WalletAPI;
-    yoroi?: WalletAPI;
-    [key: string]: WalletAPI | undefined; // Allow indexing by string
-  };
+  cardano?: WindowCardano;
 }
