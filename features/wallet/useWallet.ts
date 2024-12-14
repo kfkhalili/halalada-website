@@ -1,9 +1,10 @@
-import { useCallback } from "react";
-import * as Cardano from "@emurgo/cardano-serialization-lib-browser";
-import { Buffer } from "buffer";
 import { useEffect } from "react";
 import { useAtom } from "jotai";
-import { walletAtom, selectWalletModalAtom, walletStatusAtom } from "./atoms";
+import { walletAtom, walletStatusAtom, selectWalletModalAtom } from "./atoms";
+import PubSub from "pubsub-js";
+import { CardanoAPI, Blockfrost } from "@lib/cardano-api";
+import toast from "react-hot-toast";
+import { config } from "@shared/config";
 
 export const useRestoreWallet = () => {
   const { connectWallet } = useWallet();
@@ -15,77 +16,140 @@ export const useRestoreWallet = () => {
         console.error("Failed to restore wallet:", err);
       });
     }
-  }, [wallet?.walletKey, connectWallet]); // Use walletKey and memoized connectWallet
+  }, []);
 };
 
 export const useWallet = () => {
-  const [_, setSelectWalletModal] = useAtom(selectWalletModalAtom);
   const [wallet, setWallet] = useAtom(walletAtom);
-  const [status, setStatus] = useAtom(walletStatusAtom);
+  const [walletStatus, setWalletStatus] = useAtom(walletStatusAtom);
+  const [_, setSelectWalletModal] = useAtom(selectWalletModalAtom);
 
-  const connectWallet = useCallback(
-    async (walletKey: string) => {
-      setStatus("connecting");
+  function selectWallet() {
+    setSelectWalletModal(true);
+  }
 
-      try {
-        if (!window.cardano || !window.cardano[walletKey]) {
-          throw new Error(`${walletKey} wallet is not installed.`);
-        }
+  async function connectWallet(walletKey: string) {
+    setWalletStatus("connecting");
 
-        const api = await window.cardano[walletKey].enable();
+    try {
+      await waitForExtension(walletKey);
 
-        const utxosHex = await api.getUtxos();
-        const utxos: Cardano.TransactionUnspentOutput[] = utxosHex.map(
-          (utxo: string) =>
-            Cardano.TransactionUnspentOutput.from_bytes(
-              Buffer.from(utxo, "hex")
-            )
+      const emurgoSerializationLib = await import(
+        "@emurgo/cardano-serialization-lib-browser/cardano_serialization_lib"
+      );
+
+      await CardanoAPI.register({
+        wallet: walletKey,
+        plugins: [Blockfrost()],
+        cardanoSerializationLibrary: emurgoSerializationLib,
+      });
+
+      const response: Boolean | undefined | null =
+        await CardanoAPI?.baseCommands.enable();
+
+      if (response) {
+        const balance = await CardanoAPI.baseCommands.getBalance();
+        const paymentAddress = await CardanoAPI.baseCommands.getChangeAddress(
+          CardanoAPI.addressReturnType.bech32
         );
-
-        const totalBalance = utxos.reduce(
-          (sum: number, utxo: Cardano.TransactionUnspentOutput) => {
-            return sum + parseInt(utxo.output().amount().coin().to_str());
-          },
-          0
-        );
-
-        const address = await api.getChangeAddress();
-        const addressBech32 = Cardano.Address.from_bytes(
-          Buffer.from(address, "hex")
-        ).to_bech32();
-
         setWallet({
           walletKey,
-          balance: totalBalance,
-          address: addressBech32,
+          balance: balance,
+          address: paymentAddress,
+        });
+        setWalletStatus("connected");
+
+        PubSub.publish("wallet.connected");
+      } else {
+        setWalletStatus("disconnected");
+        toast.error("Could not connect to wallet");
+      }
+    } catch (e) {
+      setWalletStatus("disconnected");
+      toast.error("Could not connect to wallet");
+      console.error(e);
+    }
+  }
+
+  function disconnectWallet() {
+    setWalletStatus("disconnected");
+    setWallet(null);
+  }
+
+  async function delegate() {
+    const executeDelegation = async () => {
+      try {
+        //@ts-ignore
+        const stake = await CardanoAPI?.plugins.spend.delegate({
+          // testnet pools
+          // stakepoolId: '7b3170bbd9a2a806ac886dcdcedabc93869ebc8891ae006df1189e2f',
+          // stakepoolId: '5f5ed4eb2ba354ab2ad7c8859f3dacf93564637a105e80c8d8a7dc3c',
+
+          // prod
+          stakepoolId:
+            "6c518b4861bb88b1395ceb116342cecbcfb8736282655f9a61c4c368",
         });
 
-        setStatus("connected");
-      } catch (error) {
-        console.error("Wallet connection error:", error);
-        setStatus("disconnected");
+        if (stake) {
+          toast.success(
+            "Successfully delegated to our CRFA stake pool! Thank You!"
+          );
+        }
+      } catch (e) {
+        toast.error(
+          "Error occurred while delegating or a user cancelled delegation process."
+        );
+        console.log("failed while delegating", e);
       }
-    },
-    [setWallet, setStatus]
-  );
+    };
 
-  const selectWallet = () => {
-    setSelectWalletModal(true);
-  };
+    if (walletStatus !== "connected") {
+      selectWallet();
 
-  const delegate = async () => {};
-
-  const disconnectWallet = useCallback(() => {
-    setWallet(null);
-    setStatus("disconnected");
-  }, [setWallet, setStatus]);
+      const token = PubSub.subscribe("wallet.connected", () => {
+        executeDelegation();
+        PubSub.unsubscribe(token);
+      });
+    } else {
+      executeDelegation();
+    }
+  }
 
   return {
-    wallet,
-    status,
-    delegate,
-    selectWallet,
     connectWallet,
     disconnectWallet,
+    delegate,
+    selectWallet,
+    wallet,
+    status: walletStatus,
   };
 };
+
+//@ts-ignore
+function waitForExtension(walletKey) {
+  let attemps = 0;
+
+  //@ts-ignore
+  const isExtensionLoaded = () => window.cardano && window.cardano[walletKey];
+
+  return new Promise((resolve, reject) => {
+    if (isExtensionLoaded()) {
+      resolve(null);
+      return;
+    }
+
+    const interval = setInterval(function () {
+      if (isExtensionLoaded()) {
+        clearInterval(interval);
+        resolve(null);
+      } else {
+        attemps++;
+
+        if (attemps > 20) {
+          clearInterval(interval);
+          reject("Could not connect to wallet");
+        }
+      }
+    }, 200);
+  });
+}

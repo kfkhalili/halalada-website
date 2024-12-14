@@ -1,4 +1,4 @@
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import { faWallet, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
@@ -10,12 +10,11 @@ function shortenAddress(address: string = "") {
 }
 
 function formatBalance(balance: number) {
-  return (Number(balance) / 1_000_000).toFixed(2) + " ₳";
+  return (Number(balance) / 1000000).toFixed(2) + " ₳";
 }
 
-interface ConnectWalletProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
+//@ts-ignore
+export const ConnectWallet = (props) => {
   const { wallet, status, selectWallet, disconnectWallet } = useWallet();
 
   return (
@@ -28,17 +27,18 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
                 <FontAwesomeIcon icon={faWallet} />
               </div>
               <div
-                className="bg-slate-200/20 hover:bg-slate-200/25 transition-all text-slate-200 pl-4 pr-3 rounded-l-none rounded-3xl py-1 -ml-2 flex items-center tracking-wider"
+                className="bg-slate-200/20 hover:bg-slate-200/25 transition-all  text-slate-200 pl-4 pr-3 rounded-l-none rounded-3xl  py-1 -ml-2 flex items-center tracking-wider"
                 title={wallet.address}
               >
                 {shortenAddress(wallet.address)}
+
                 <div className="ml-2 flex items-center bg-white/90 rounded-full p-[2px]">
                   <NextImage
-                    objectFit="contain"
+                    className=""
                     height={22}
                     width={22}
                     src={config.wallets[wallet.walletKey].logo}
-                    alt=""
+                    alt={wallet.walletKey}
                   />
                 </div>
                 <FontAwesomeIcon
@@ -49,7 +49,6 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
               </div>
             </div>
           </PopoverButton>
-
           <PopoverPanel className="absolute z-10 w-screen max-w-sm px-4 mt-3 transform -translate-x-1/2 left-1/2">
             <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-slate-900 text-slate-200 p-7 border border-slate-800">
               <div className="flex justify-between mb-3">
@@ -60,11 +59,11 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
                       objectFit="contain"
                       height={22}
                       width={22}
-                      src={config.wallets[wallet.walletKey].logo}
-                      alt=""
+                      src={config.wallets?.[wallet.walletKey]?.logo || ""}
+                      alt={config.wallets?.[wallet.walletKey]?.name || ""}
                     />
                   </div>
-                  {config.wallets[wallet.walletKey].name}
+                  {config.wallets?.[wallet.walletKey]?.name || "Unknown Wallet"}
                 </div>
               </div>
               <div className="flex justify-between">
@@ -93,7 +92,7 @@ export const ConnectWallet: React.FC<ConnectWalletProps> = (props) => {
 
       {status === "connecting" && (
         <button className="btn-secondary">
-          <FontAwesomeIcon icon={faWallet} className="mr-1 text-slate-300" />
+          <FontAwesomeIcon icon={faWallet} className="mr-1 text-slate-300" />{" "}
           Connecting...
         </button>
       )}
