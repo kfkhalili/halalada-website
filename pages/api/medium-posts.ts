@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import fetch from "node-fetch";
 import * as cheerio from "cheerio";
 
-// @ts-ignore
 import Meed from "meed";
 
 function extractImage(content: string) {

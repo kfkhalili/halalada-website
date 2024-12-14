@@ -1,15 +1,8 @@
 import { useEffect } from "react";
 import { useAtom } from "jotai";
-import {
-  walletAtom,
-  walletStatusAtom,
-  selectWalletModalAtom,
-  donateModalAtom,
-  premiumAccessStatusAtom,
-} from "./atoms";
+import { walletAtom, walletStatusAtom, selectWalletModalAtom } from "./atoms";
 import PubSub from "pubsub-js";
-import * as cbor from "cbor-web";
-import { CardanoAPI, Blockfrost, Spend } from "@lib/cardano-api";
+import { CardanoAPI, Blockfrost } from "@lib/cardano-api";
 import toast from "react-hot-toast";
 import { config } from "@shared/config";
 
@@ -18,27 +11,21 @@ export const useRestoreWallet = () => {
   const [wallet] = useAtom(walletAtom);
 
   useEffect(() => {
-    if (wallet) {
-      connectWallet(wallet.walletKey);
+    if (wallet?.walletKey) {
+      connectWallet(wallet.walletKey).catch((err) => {
+        console.error("Failed to restore wallet:", err);
+      });
     }
   }, []);
 };
 
-export function useWallet() {
+export const useWallet = () => {
   const [wallet, setWallet] = useAtom(walletAtom);
-  const [premiumAccessStatus, setPremiumAccessStatus] = useAtom(
-    premiumAccessStatusAtom
-  );
   const [walletStatus, setWalletStatus] = useAtom(walletStatusAtom);
   const [_, setSelectWalletModal] = useAtom(selectWalletModalAtom);
-  const [__, setDonateModal] = useAtom(donateModalAtom);
 
   function selectWallet() {
     setSelectWalletModal(true);
-  }
-
-  function selectDonation() {
-    setDonateModal(true);
   }
 
   async function connectWallet(walletKey: string) {
@@ -48,12 +35,12 @@ export function useWallet() {
       await waitForExtension(walletKey);
 
       const emurgoSerializationLib = await import(
-        "@emurgo/cardano-serialization-lib-browser/cardano_serialization_lib.js"
+        "@emurgo/cardano-serialization-lib-browser/cardano_serialization_lib"
       );
 
       await CardanoAPI.register({
         wallet: walletKey,
-        plugins: [Blockfrost(), Spend()],
+        plugins: [Blockfrost()],
         cardanoSerializationLibrary: emurgoSerializationLib,
       });
 
@@ -65,11 +52,9 @@ export function useWallet() {
         const paymentAddress = await CardanoAPI.baseCommands.getChangeAddress(
           CardanoAPI.addressReturnType.bech32
         );
-        const decodedBalance = await decodeBalance(String(balance));
-
         setWallet({
           walletKey,
-          balance: decodedBalance,
+          balance: balance,
           address: paymentAddress,
         });
         setWalletStatus("connected");
@@ -96,14 +81,18 @@ export function useWallet() {
       try {
         //@ts-ignore
         const stake = await CardanoAPI?.plugins.spend.delegate({
-          // mainnet
+          // testnet pools
+          // stakepoolId: '7b3170bbd9a2a806ac886dcdcedabc93869ebc8891ae006df1189e2f',
+          // stakepoolId: '5f5ed4eb2ba354ab2ad7c8859f3dacf93564637a105e80c8d8a7dc3c',
+
+          // prod
           stakepoolId:
             "6c518b4861bb88b1395ceb116342cecbcfb8736282655f9a61c4c368",
         });
 
         if (stake) {
           toast.success(
-            "Successfully delegated to our HLAL1 stake pool! Thank You!"
+            "Successfully delegated to our CRFA stake pool! Thank You!"
           );
         }
       } catch (e) {
@@ -126,126 +115,19 @@ export function useWallet() {
     }
   }
 
-  async function donate() {
-    const executeDonation = async (amount: number) => {
-      try {
-        //@ts-ignore
-        const result = await CardanoAPI?.plugins.spend.send({
-          // mainnet
-          address:
-            "addr1q8nq8wdhrpq402qj4hyn5rxn624l0ccua8k3epl2xl3fz57zddeldn7syvs5x2uvuefk66azhr7lelrj423lxapuxkksknwfdj",
-          amount,
-          metadataLabel: "674",
-          metadata: { msg: ["CBI"] },
-        });
-
-        if (result) {
-          toast.success(
-            `Successfully donated ${amount} ADA to Cardano Blockchain Insights! Thank You!`
-          );
-        }
-      } catch (e) {
-        toast.error(
-          "Error occurred while donating or a user cancelled transaction."
-        );
-        console.log("failed while donating", e);
-      }
-    };
-
-    if (walletStatus !== "connected") {
-      selectWallet();
-
-      const connectionToken = PubSub.subscribe("wallet.connected", () => {
-        selectDonation();
-
-        PubSub.unsubscribe(connectionToken);
-      });
-    } else {
-      selectDonation();
-    }
-
-    const donationToken = PubSub.subscribe(
-      "donation.confirmed",
-      (msg, data) => {
-        executeDonation(data.amount);
-        PubSub.unsubscribe(donationToken);
-      }
-    );
-  }
-
-  function checkPremiumAccessByToken() {
-    const executeGetAssets = async () => {
-      setPremiumAccessStatus("checking");
-
-      //@ts-ignore
-      const rewardAddress = await CardanoAPI.baseCommands.getRewardAddress(
-        CardanoAPI.addressReturnType.bech32
-      );
-
-      //@ts-ignore
-      const result = await CardanoAPI?.plugins.spend.getAssets(rewardAddress);
-
-      if (result) {
-        const hasAccess = result.some(
-          (asset: { unit: string; quantity: string }) =>
-            asset.unit === config.accessToken &&
-            Number(asset.quantity) >= config.accessTokenQuantity
-        );
-        setPremiumAccessStatus(hasAccess ? "granted" : "denied");
-      }
-    };
-
-    if (walletStatus !== "connected") {
-      const token = PubSub.subscribe("wallet.connected", () => {
-        executeGetAssets();
-        PubSub.unsubscribe(token);
-      });
-    } else {
-      executeGetAssets();
-    }
-  }
-
-  function confirmDonation(amount: number) {
-    PubSub.publish("donation.confirmed", { amount });
-  }
-
   return {
     connectWallet,
     disconnectWallet,
     delegate,
-    donate,
-    checkPremiumAccessByToken,
-    confirmDonation,
     selectWallet,
     wallet,
     status: walletStatus,
-    premiumAccessStatus,
   };
-}
-
-async function decodeBalance(cborValue: string) {
-  if (!cborValue) {
-    return 0;
-  }
-
-  const hexPairs = cborValue.match(/.{1,2}/g) || [];
-  const buffer = new Uint8Array(
-    hexPairs.map((byte: string) => parseInt(byte, 16))
-  );
-
-  const decodedBalance = await cbor.decodeFirst(buffer);
-
-  // cover edge case
-  if (Array.isArray(decodedBalance)) {
-    return decodedBalance[0];
-  }
-
-  return decodedBalance;
-}
+};
 
 //@ts-ignore
 function waitForExtension(walletKey) {
-  let attempts = 0;
+  let attemps = 0;
 
   //@ts-ignore
   const isExtensionLoaded = () => window.cardano && window.cardano[walletKey];
@@ -261,9 +143,9 @@ function waitForExtension(walletKey) {
         clearInterval(interval);
         resolve(null);
       } else {
-        attempts++;
+        attemps++;
 
-        if (attempts > 20) {
+        if (attemps > 20) {
           clearInterval(interval);
           reject("Could not connect to wallet");
         }

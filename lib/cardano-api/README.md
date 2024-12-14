@@ -163,24 +163,24 @@ This allows you to send items from the users address to another address. Some ex
 ```javascript
 await CardanoAPI.plugins.spend.send({
   address:
-    'addr1qyzu9rqav3su8duqwz8eadj60 5ldx3qcpfm0e4epc3rffmw09arg9qq Hqd7hlrg64xp5uwmqry3h24np7xqfcXy09gtqh228zy',
+    "addr1qyzu9rqav3su8duqwz8eadj60 5ldx3qcpfm0e4epc3rffmw09arg9qq Hqd7hlrg64xp5uwmqry3h24np7xqfcXy09gtqh228zy",
   amount: 40,
-})
+});
 
 await CardanoAPI.plugins.spend.send({
   address:
-    'addr1qyzu9rqav3su8duqwz8eadj60 5ldx3qcpfm0e4epc3rffmw09arg9qq Hqd7hlrg64xp5uwmqry3h24np7xqfcXy09gtqh228zy',
+    "addr1qyzu9rqav3su8duqwz8eadj60 5ldx3qcpfm0e4epc3rffmw09arg9qq Hqd7hlrg64xp5uwmqry3h24np7xqfcXy09gtqh228zy",
   amount: 20,
   assets: [
     {
-      unit: '5230d16116431597796d250dcd7acf1e3afb717bf66c8108abdc83df.KnittieAstro031',
-      quantity: '1',
+      unit: "5230d16116431597796d250dcd7acf1e3afb717bf66c8108abdc83df.KnittieAstro031",
+      quantity: "1",
     },
   ],
   metadata: {
-    RandomData: 'My random metadata',
+    RandomData: "My random metadata",
   },
-})
+});
 ```
 
 ```javascript
@@ -193,25 +193,25 @@ You can also send to multiple users with one command. See an example below.
 await CardanoAPI.plugins.spend.sendMultiple({
   recipients: [
     {
-      address: '',
+      address: "",
       amount: 5,
       assets: [
         {
-          unit: '',
-          quantity: '1',
+          unit: "",
+          quantity: "1",
         },
       ],
     },
     {
-      address: '',
+      address: "",
       amount: 47,
     },
     {
-      address: '',
+      address: "",
       amount: 22,
     },
   ],
-})
+});
 ```
 
 ```javascript

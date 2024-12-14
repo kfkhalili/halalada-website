@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { DelegateButton } from "@features/wallet";
 
 export const Hero: React.FC = () => {

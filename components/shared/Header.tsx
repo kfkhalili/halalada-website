@@ -78,7 +78,7 @@ export const Header: React.FC = () => {
           </nav>
           <div className="mobile-nav lg:hidden">
             <div className="nav-hamburger">
-              <input type="checkbox" />
+              <input name="close" type="checkbox" />
               <span />
               <span />
               <span />
@@ -95,12 +95,6 @@ export const Header: React.FC = () => {
                       <li className="menu-item">
                         <Link href="/#about" passHref>
                           Our Pool
-                        </Link>
-                      </li>
-
-                      <li className="menu-item">
-                        <Link href="/pool-stats" passHref>
-                          Pool Stats
                         </Link>
                       </li>
 

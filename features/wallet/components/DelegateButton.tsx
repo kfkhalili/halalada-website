@@ -1,11 +1,11 @@
-import { useWallet } from '../useWallet'
+import { useWallet } from "../useWallet";
 
 export const DelegateButton = (props: any) => {
-  const { delegate } = useWallet()
+  const { delegate } = useWallet();
 
   const onClick = () => {
-    delegate()
-  }
+    delegate();
+  };
 
   return (
     <div {...props}>
@@ -13,5 +13,5 @@ export const DelegateButton = (props: any) => {
         Stake with us
       </button>
     </div>
-  )
-}
+  );
+};

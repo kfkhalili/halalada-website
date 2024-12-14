@@ -1,5 +1,5 @@
 import React from "react";
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import { useAtom } from "jotai";
 import { Modal } from "@components/shared/Modal";
 import { config } from "@shared/config";
@@ -26,20 +26,21 @@ export const SelectWalletModal: React.FC = () => {
         {Object.values(config.wallets).map((wallet) => (
           <button
             key={wallet.name}
-            className="p-3 bg-slate-800/80 hover:bg-slate-800 rounded-lg transition-all"
+            className="p-3 bg-slate-800/80 hover:bg-slate-800 rounded-lg transition-all flex flex-col items-center"
             onClick={() => {
               connectWallet(wallet.walletKey);
               setIsOpen(false);
             }}
           >
-            <NextImage
-              objectFit="contain"
-              height={80}
-              width={80}
-              src={wallet.logo}
-              alt=""
-            />
-
+            <div className="flex justify-center items-center mb-2">
+              <NextImage
+                objectFit="contain"
+                height={80}
+                width={80}
+                src={wallet.logo}
+                alt=""
+              />
+            </div>
             <div className="text-slate-100 text-lg">{wallet.name}</div>
           </button>
         ))}
