@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-title-in-document-head */
 import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 
-// @ts-ignore
 class Document extends NextDocument {
   render() {
     return (
