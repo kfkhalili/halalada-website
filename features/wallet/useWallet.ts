@@ -2,9 +2,8 @@ import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { walletAtom, walletStatusAtom, selectWalletModalAtom } from "./atoms";
 import PubSub from "pubsub-js";
-import { CardanoAPI, Blockfrost } from "@lib/cardano-api";
+import { CardanoAPI, Blockfrost, Spend } from "@lib/cardano-api";
 import toast from "react-hot-toast";
-import { config } from "@shared/config";
 
 export const useRestoreWallet = () => {
   const { connectWallet } = useWallet();
@@ -40,7 +39,7 @@ export const useWallet = () => {
 
       await CardanoAPI.register({
         wallet: walletKey,
-        plugins: [Blockfrost()],
+        plugins: [Blockfrost(), Spend()],
         cardanoSerializationLibrary: emurgoSerializationLib,
       });
 
@@ -81,25 +80,20 @@ export const useWallet = () => {
       try {
         //@ts-ignore
         const stake = await CardanoAPI?.plugins.spend.delegate({
-          // testnet pools
-          // stakepoolId: '7b3170bbd9a2a806ac886dcdcedabc93869ebc8891ae006df1189e2f',
-          // stakepoolId: '5f5ed4eb2ba354ab2ad7c8859f3dacf93564637a105e80c8d8a7dc3c',
-
-          // prod
           stakepoolId:
-            "6c518b4861bb88b1395ceb116342cecbcfb8736282655f9a61c4c368",
+            "e5db8de271d3007b5a2a7f960938257adf370ea50e2a53baf461b680",
         });
 
         if (stake) {
           toast.success(
-            "Successfully delegated to our CRFA stake pool! Thank You!"
+            "Successfully delegated to our Halal ADA stake pool! Thank You!"
           );
         }
       } catch (e) {
         toast.error(
           "Error occurred while delegating or a user cancelled delegation process."
         );
-        console.log("failed while delegating", e);
+        console.error("failed while delegating", e);
       }
     };
 
