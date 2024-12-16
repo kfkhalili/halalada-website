@@ -13,12 +13,11 @@ function formatBalance(balance: number) {
   return (Number(balance) / 1000000).toFixed(2) + " ₳";
 }
 
-//@ts-ignore
-export const ConnectWallet = (props) => {
+export const ConnectWallet = () => {
   const { wallet, status, selectWallet, disconnectWallet } = useWallet();
 
   return (
-    <div {...props}>
+    <div>
       {status === "connected" && (
         <Popover className="relative">
           <PopoverButton>
