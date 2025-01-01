@@ -430,8 +430,8 @@ const _txBuilder = ({
   );
 
   const builtTx = txBuilder.build();
-  console.log("Min fee:", txBuilder.min_fee().to_str());
-  console.log("Actual body fee:", builtTx.fee().to_str());
+  // console.log("Min fee:", txBuilder.min_fee().to_str());
+  // console.log("Actual body fee:", builtTx.fee().to_str());
 
   const transaction = serializationLib.Transaction.new(
     builtTx,
