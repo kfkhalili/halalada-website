@@ -250,6 +250,7 @@ const delegate = async ({
       `/accounts/${rewardAddr}`
     );
     if (!stake || stake.error)
+      //|| !stake.pool_id
       throw new Error("Blockfrost data retreived is incorrect");
     return {
       active: stake.active,
