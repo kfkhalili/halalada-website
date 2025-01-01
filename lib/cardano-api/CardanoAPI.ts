@@ -1,3 +1,4 @@
+//CardanoAPI.ts
 import { Commands } from "./Commands";
 import type * as CardanoSerializationLibrary from "@emurgo/cardano-serialization-lib-browser";
 import * as buffer from "buffer";
