@@ -10,11 +10,7 @@ Create .env.local file with the following content:
 
 ```
 BLOCKFROST_MAINNET_KEY="KEY"
-BLOCKFROST_MAINNET_URL="https://Cardano-mainnet.blockfrost.io/api/v0"
-
-BLOCKFROST_TESTNET_KEY="KEY"
-BLOCKFROST_TESTNET_URL="https://Cardano-testnet.blockfrost.io/api/v0"
-PREDICTION_API_URL="https://europe-west2-cognitivo-ai.cloudfunctions.net/ada_price"
+BLOCKFROST_MAINNET_URL="https://cardano-mainnet.blockfrost.io/api/v0"
 ```
 
 ## Dev server
