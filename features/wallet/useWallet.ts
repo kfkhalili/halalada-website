@@ -93,7 +93,6 @@ export const useWallet = () => {
         toast.error(
           "Error occurred while delegating or a user cancelled delegation process."
         );
-        console.error("failed while delegating", e);
       }
     };
 
