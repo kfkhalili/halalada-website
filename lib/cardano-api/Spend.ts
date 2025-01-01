@@ -250,7 +250,6 @@ const delegate = async ({
       `/accounts/${rewardAddr}`
     );
     if (!stake || stake.error)
-      //|| !stake.pool_id
       throw new Error("Blockfrost data retreived is incorrect");
     return {
       active: stake.active,
@@ -364,14 +363,13 @@ const _txBuilder = ({
       .build()
   );
 
-  // Add inputs using CSL's LargestFirst coin selection strategy
   const transactionUnspentOutputs =
     serializationLib.TransactionUnspentOutputs.new();
   Utxos.forEach((utxo) => transactionUnspentOutputs.add(utxo));
 
   txBuilder.add_inputs_from(
     transactionUnspentOutputs,
-    serializationLib.CoinSelectionStrategyCIP2.LargestFirst
+    serializationLib.CoinSelectionStrategyCIP2.RandomImprove
   );
 
   // Add outputs to the transaction
@@ -431,9 +429,12 @@ const _txBuilder = ({
     serializationLib.Address.from_bech32(PaymentAddress)
   );
 
-  // Build the transaction
+  const builtTx = txBuilder.build();
+  console.log("Min fee:", txBuilder.min_fee().to_str());
+  console.log("Actual body fee:", builtTx.fee().to_str());
+
   const transaction = serializationLib.Transaction.new(
-    txBuilder.build(),
+    builtTx,
     serializationLib.TransactionWitnessSet.new()
   );
 
