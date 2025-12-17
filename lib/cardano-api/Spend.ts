@@ -250,6 +250,7 @@ const delegate = async ({
       `/accounts/${rewardAddr}`
     );
     if (!stake || stake.error)
+      //|| !stake.pool_id
       throw new Error("Blockfrost data retreived is incorrect");
     return {
       active: stake.active,
@@ -430,8 +431,8 @@ const _txBuilder = ({
   );
 
   const builtTx = txBuilder.build();
-  console.log("Min fee:", txBuilder.min_fee().to_str());
-  console.log("Actual body fee:", builtTx.fee().to_str());
+  // console.log("Min fee:", txBuilder.min_fee().to_str());
+  // console.log("Actual body fee:", builtTx.fee().to_str());
 
   const transaction = serializationLib.Transaction.new(
     builtTx,
