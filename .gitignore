@@ -40,3 +40,7 @@ yarn-error.log*
 *.tar
 *.tar.gz
 .vscode
+.env*.local
+
+# yarn lock file (project uses npm)
+yarn.lock

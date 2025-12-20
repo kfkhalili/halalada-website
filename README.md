@@ -3,7 +3,7 @@
 Halal ADA public webapp. It is Next.js application. Read more here: Next.README.md
 
 ```
-yarn install
+npm install
 ```
 
 Create .env.local file with the following content:
@@ -16,14 +16,14 @@ BLOCKFROST_MAINNET_URL="https://cardano-mainnet.blockfrost.io/api/v0"
 ## Dev server
 
 ```
-yarn dev
+npm run dev
 ```
 
 ## Prod build
 
 ```
-yarn build
-yarn start
+npm run build
+npm start
 ```
 
 ## Support / Donation
